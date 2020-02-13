@@ -1,8 +1,15 @@
 BASE_URL = '{{ alerta_server_base_url | default() }}'
 SECRET_KEY = '{{ alerta_server_secret_key }}'
 DATABASE_URL = '{{ alerta_server_database_url }}'
-AUTH_REQUIRED = False
+SIGNUP_ENABLED = {{ alerta_server_signup_enabled }}
+AUTH_REQUIRED = {{ alerta_server_auth_required }}
 AUTH_PROVIDER = 'basic'
 ADMIN_USERS = {{ alerta_server_admin_users | to_json }}
 CORS_ORIGINS = {{ alerta_server_cors_origins | to_json }}
 ALLOWED_ENVIRONMENTS = {{ alerta_server_allowed_environments | to_json }}
+PLUGINS = {{ alerta_server_plugins }}
+
+{% if 'prometheus' in alerta_server_plugins %}
+ALERTMANAGER_API_URL = '{{ alerta_server_alertmanager_api_url }}'
+ALERTMANAGER_SILENCE_DAYS = {{ alerta_server_alertmanager_silence_days }}
+{% endif %}

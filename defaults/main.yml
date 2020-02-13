@@ -7,6 +7,8 @@ alerta_server_api_endpoint: /api
 alerta_server_socket_path: /tmp/uwsgi.sock
 alerta_server_secret_key: changeme
 alerta_server_chmod_socket: 644
+alerta_server_signup_enabled: true
+alerta_server_auth_required: false
 alerta_server_cors_origins:
   - https://alerta.example.org
 alerta_admin_users:
@@ -15,6 +17,11 @@ alerta_server_allowed_environments:
   - production
   - staging
   - development
+alerta_server_plugins:
+  - remote_ip
+  - reject
+  - heartbeat
+  - blackout
 
 #webui
 alerta_webui_version: "{{ alerta_server_version }}"
