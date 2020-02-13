@@ -9,9 +9,9 @@ alerta_server_chmod_socket: 644
 alerta_server_signup_enabled: true
 alerta_server_auth_required: false
 #uwsgi mode: http-socket or socket
-alerta_server_uwsgi_mode: http-socket
+alerta_server_uwsgi_mode: socket
 #only if uwsgi_mode = socket
-alerta_server_socket_path: /tmp/uwsgi.sock
+alerta_server_socket: /tmp/uwsgi.sock
 #only if uwsgi_mode = http-socket
 alerta_server_listen_address: 127.0.0.1:3031
 alerta_server_cors_origins:

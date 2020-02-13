@@ -48,17 +48,14 @@ As for mongo, [this mongodb role](https://github.com/UnderGreen/ansible-role-mon
 ### Socket / http-socket
 This role supports for both uwsgi socket and http-socket mode.  
 Set _alerta_server_uwsgi_mode_ to _socket_ or _http-socket_ to select which mode you will be using.  
-When in socket mode, you will need to specify following variables:
+When in file socket mode, you will need to specify following parameters:
 ```yaml
-alerta_server_socket_path
-alerta_server_chmod_socket
+alerta_server_socket
 ```
 When in http-socket you will need to specify
 ```yaml
 alerta_server_listen_address
 ```
-
-Please note than in both modes server still speaks uwsgi, so you will need to use uwsgi_pass in nginx or mod_proxy_uwsgi in apache.
 
 ### Plugins
 This role supports installation of plugins via pip3 via alerta_server_external_plugins array.   
