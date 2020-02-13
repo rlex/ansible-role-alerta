@@ -1,0 +1,39 @@
+- name: Create alerta webui directory
+  file:
+    path: "{{ alerta_webui_path }}"
+    state: directory
+
+- name: Get alerta-webui files
+  get_url:
+    url: "https://github.com/alerta/alerta-webui/releases/download/v{{ alerta_webui_version }}/alerta-webui.tar.gz"
+    dest: "/tmp/"
+
+- name: Install alerta-webui files
+  unarchive:
+    src: "/tmp/alerta-webui.tar.gz"
+    remote_src: yes
+    dest: "{{ alerta_webui_path }}"
+    owner: "{{ alerta_webui_user }}"
+    group: "{{ alerta_webui_user }}"
+    extra_opts: [--strip-components=1]
+
+- name: Install alerta-webui config file
+  template:
+    src: config.json.j2
+    dest: "{{ alerta_webui_path }}"
+    owner: "{{ alerta_webui_user }}"
+    group: "{{ alerta_webui_user }}"
+    mode: 0755
+
+- name: Cleanup temporary download file
+  file:
+    state: absent
+    path: "/tmp/alerta-webui.tar.gz"
+
+- name: "Create VERSION file"
+  copy:
+    content: "{{ alerta_webui_version }}"
+    dest: /etc/alerta-webui.version
+    mode: 0600
+    owner: root
+    group: root

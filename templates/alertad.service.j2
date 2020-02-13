@@ -1,0 +1,13 @@
+[Unit]
+Description=alertad service
+After=network.target
+
+[Service]
+Type=simple
+User={{ alerta_server_user }}
+ExecStart=uwsgi --ini /etc/alertad-uwsgi.ini
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

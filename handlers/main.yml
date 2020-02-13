@@ -1,0 +1,5 @@
+- name: restart alertad
+  systemd:
+    daemon_reload: true
+    name: alertad
+    state: restarted

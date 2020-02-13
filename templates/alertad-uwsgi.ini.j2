@@ -1,0 +1,19 @@
+[uwsgi]
+chdir = {{ alerta_server_path }}
+mount = {{ alerta_server_api_endpoint }}=alertad-uwsgi.py
+callable = app
+manage-script-name = true
+env = BASE_URL={{ alerta_server_api_endpoint }}
+
+master = true
+processes = 5
+#logger = syslog:alertad
+
+socket = {{ alerta_server_socket_path }}
+chmod-socket = {{ alerta_server_chmod_socket }}
+plugins = python3
+uid = {{ alerta_server_user }}
+gid = {{ alerta_server_user }}
+vacuum = true
+
+die-on-term = true

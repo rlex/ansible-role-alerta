@@ -1,0 +1,23 @@
+alerta_server_user: alerta
+alerta_server_version: 7.4.4
+#alerta_server_base_url: /
+alerta_server_path: /srv/www/alerta-server
+alerta_server_database_url: mongodb://localhost:27017/monitoring
+alerta_server_api_endpoint: /api
+alerta_server_socket_path: /tmp/uwsgi.sock
+alerta_server_secret_key: changeme
+alerta_server_chmod_socket: 644
+alerta_server_cors_origins:
+  - https://alerta.example.org
+alerta_admin_users:
+  - admin
+alerta_server_allowed_environments:
+  - production
+  - staging
+  - development
+
+#webui
+alerta_webui_version: "{{ alerta_server_version }}"
+alerta_webui_path: /srv/www/alerta
+alerta_webui_user: "{{ alerta_server_user }}"
+alerta_webui_api_endpoint: "{{ alerta_server_api_endpoint }}"
