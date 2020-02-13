@@ -45,12 +45,31 @@ I recommend awesome [nginx role by jdauphant](https://github.com/jdauphant/ansib
 
 As for mongo, [this mongodb role](https://github.com/UnderGreen/ansible-role-mongodb) is pretty good
 
-### Plugins
-This role supports prometheus plugin ATM. You still need to install it with 
+### Socket / http-socket
+This role supports for both uwsgi socket and http-socket mode.  
+Set _alerta_server_uwsgi_mode_ to _socket_ or _http-socket_ to select which mode you will be using.  
+When in socket mode, you will need to specify following variables:
+```yaml
+alerta_server_socket_path
+alerta_server_chmod_socket
 ```
-pip install git+https://github.com/alerta/alerta-contrib.git#subdirectory=plugins/prometheus
+When in http-socket you will need to specify
+```yaml
+alerta_server_listen_address
 ```
 
+Please note than in both modes server still speaks uwsgi, so you will need to use uwsgi_pass in nginx or mod_proxy_uwsgi in apache.
+
+### Plugins
+This role supports installation of plugins via pip3 via alerta_server_external_plugins array.   
+Example config:
+```
+alerta_server_external_plugins:
+  - git+https://github.com/alerta/alerta-contrib.git#subdirectory=plugins/telegram
+  - git+https://github.com/alerta/alerta-contrib.git#subdirectory=plugins/prometheus
+```
+
+However only prometheus configuration settings are supported ATM.  
 After installation you will need to enable plugin:
 ```
 alerta_server_plugins:
@@ -60,13 +79,11 @@ alerta_server_plugins:
   - blackout
   - prometheus
 ```
-And configure plugin:
+And configure it:
 ```
 alerta_server_alertmanager_api_url: http://localhost:9093
 alerta_server_alertmanager_silence_days: 1
 ```
 
 ### TBD
-* Plugin installation
-* Uwsgi option socket/port
 * More options

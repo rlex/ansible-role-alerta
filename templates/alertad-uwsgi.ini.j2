@@ -9,8 +9,12 @@ master = true
 processes = 5
 #logger = syslog:alertad
 
+{% if alerta_server_uwsgi_mode == 'socket' -%}
 socket = {{ alerta_server_socket_path }}
 chmod-socket = {{ alerta_server_chmod_socket }}
+{% elif alerta_server_uwsgi_mode == 'http-socket' -%}
+http-socket = {{ alerta_server_listen_address }}
+{% endif %}
 plugins = python3
 uid = {{ alerta_server_user }}
 gid = {{ alerta_server_user }}

@@ -19,6 +19,12 @@
     executable: pip3
     state: latest
 
+- name: Install alerta external plugins
+  pip:
+    name: "{{ alerta_server_external_plugins }}"
+    executable: pip3
+  when: alerta_server_external_plugins is defined and alerta_server_external_plugins|length>0
+
 - name: create alerta system user
   user:
     name: alerta
