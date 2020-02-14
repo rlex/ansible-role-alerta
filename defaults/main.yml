@@ -27,7 +27,28 @@ alerta_server_plugins:
   - reject
   - heartbeat
   - blackout
+alerta_server_columns:
+  - severity
+  - status
+  - lastReceiveTime
+  - duplicateCount
+  - customer
+  - environment
+  - service
+  - resource
+  - event
+  - value
+  - text
+
 alerta_server_external_plugins: []
+
+alerta_server_telegram_token:
+alerta_server_telegram_chat_id:
+alerta_server_telegram_template:
+alerta_server_telegram_sound_notification_severity:
+  - critical
+  - fatal
+  - warning
 
 #webui
 alerta_webui_version: "{{ alerta_server_version }}"

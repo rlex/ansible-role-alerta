@@ -7,9 +7,18 @@ AUTH_PROVIDER = 'basic'
 ADMIN_USERS = {{ alerta_server_admin_users | to_json }}
 CORS_ORIGINS = {{ alerta_server_cors_origins | to_json }}
 ALLOWED_ENVIRONMENTS = {{ alerta_server_allowed_environments | to_json }}
+COLUMNS = {{ alerta_server_columns | to_json }}
+
 PLUGINS = {{ alerta_server_plugins }}
 
 {% if 'prometheus' in alerta_server_plugins %}
 ALERTMANAGER_API_URL = '{{ alerta_server_alertmanager_api_url }}'
 ALERTMANAGER_SILENCE_DAYS = {{ alerta_server_alertmanager_silence_days }}
+{% endif %}
+
+{% if 'telegram' in alerta_server_plugins %}
+TELEGRAM_TOKEN = '{{ alerta_server_telegram_token }}'
+TELEGRAM_CHAT_ID = '{{ alerta_server_telegram_chat_id }}'
+TELEGRAM_TEMPLATE = '{{ alerta_server_telegram_template | default() }}'
+TELEGRAM_WEBHOOK_URL = '{{ alerta_server_telegram_webhook_url }}'
 {% endif %}

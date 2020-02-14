@@ -15,9 +15,10 @@ alerta_server_allowed_environments:
 ```
 
 ### Nginx
-This role does not install and configure mongo and nginx. Use separate roles for that.  
+This role only installs and manages alerta. It does not install and configure mongo and nginx. Use separate roles for that.  
 I recommend awesome [nginx role by jdauphant](https://github.com/jdauphant/ansible-role-nginx). Server block for alerta:
 ```yaml
+nginx_sites:
   alert.example.org:
     - listen {{ ansible_default_ipv4["address"] }}:80
     - listen {{ ansible_default_ipv4["address"] }}:443 ssl http2
@@ -32,7 +33,7 @@ I recommend awesome [nginx role by jdauphant](https://github.com/jdauphant/ansib
     - location /api { try_files $uri @api; }
     - location @api {
         include uwsgi_params;
-        uwsgi_pass unix:/tmp/uwsgi.sock;
+        uwsgi_pass 127.0.0.1:3031;
         proxy_set_header Host $host:$server_port;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -58,17 +59,17 @@ alerta_server_listen_address
 ```
 
 ### Plugins
-This role supports installation of plugins via pip3 via alerta_server_external_plugins array.   
+This role supports installation of plugins with pip3 via alerta_server_external_plugins array.   
 Example config:
-```
+```yaml
 alerta_server_external_plugins:
   - git+https://github.com/alerta/alerta-contrib.git#subdirectory=plugins/telegram
   - git+https://github.com/alerta/alerta-contrib.git#subdirectory=plugins/prometheus
 ```
 
-However only prometheus configuration settings are supported ATM.  
+#### [Prometheus](https://github.com/alerta/alerta-contrib/tree/master/plugins/prometheus)
 After installation you will need to enable plugin:
-```
+```yaml
 alerta_server_plugins:
   - remote_ip
   - reject
@@ -77,10 +78,17 @@ alerta_server_plugins:
   - prometheus
 ```
 And configure it:
-```
+```yaml
 alerta_server_alertmanager_api_url: http://localhost:9093
 alerta_server_alertmanager_silence_days: 1
 ```
 
-### TBD
-* More options
+#### [Telegram](https://github.com/alerta/alerta-contrib/tree/master/plugins/telegram)
+Enable the same way as prometheus.  
+Possible options for telegram plugin:
+```
+alerta_server_telegram_token: your_telegram_bot_token
+alerta_server_telegram_chat_id: your_chat_id
+alerta_server_telegram_template: path_to_template_file
+alerta_server_telegram_webhook_url: alerta_api_webhook
+```
