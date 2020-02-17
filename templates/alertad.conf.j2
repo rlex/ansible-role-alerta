@@ -19,6 +19,8 @@ ALERTMANAGER_SILENCE_DAYS = {{ alerta_server_alertmanager_silence_days }}
 {% if 'telegram' in alerta_server_plugins %}
 TELEGRAM_TOKEN = '{{ alerta_server_telegram_token }}'
 TELEGRAM_CHAT_ID = '{{ alerta_server_telegram_chat_id }}'
-TELEGRAM_TEMPLATE = '{{ alerta_server_telegram_template | default() }}'
+TELEGRAM_TEMPLATE = {{ alerta_server_telegram_template | default() }}
 TELEGRAM_WEBHOOK_URL = '{{ alerta_server_telegram_webhook_url }}'
+TELEGRAM_SOUND_NOTIFICATION_SEVERITY = {{ alerta_server_telegram_sound_notification_severity | to_json }}
+DASHBOARD_URL = '{{ alerta_server_dashboard_url }}'
 {% endif %}

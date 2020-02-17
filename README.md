@@ -89,6 +89,13 @@ Possible options for telegram plugin:
 ```
 alerta_server_telegram_token: your_telegram_bot_token
 alerta_server_telegram_chat_id: your_chat_id
-alerta_server_telegram_template: path_to_template_file
-alerta_server_telegram_webhook_url: alerta_api_webhook
+alerta_server_telegram_webhook_url: https://alerta.example.org/api/webhook/telegram
+```
+Also allows to customize message:
+```yaml
+alerta_server_telegram_template: |
+  """
+  {% raw %}*[{{ status }}]: {{ environment }} {{ severity }}*
+  {{ event | replace("_","\_") }} on {{ resource }}{% endraw %}
+  """
 ```

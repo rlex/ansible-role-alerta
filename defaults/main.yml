@@ -47,8 +47,8 @@ alerta_server_telegram_chat_id:
 alerta_server_telegram_template:
 alerta_server_telegram_sound_notification_severity:
   - critical
-  - fatal
   - warning
+alerta_server_dashboard_url: https://alerta.example.com
 
 #webui
 alerta_webui_version: "{{ alerta_server_version }}"
