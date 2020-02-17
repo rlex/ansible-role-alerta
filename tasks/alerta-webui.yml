@@ -20,7 +20,7 @@
 - name: Install alerta-webui config file
   template:
     src: config.json.j2
-    dest: "{{ alerta_webui_path }}"
+    dest: "{{ alerta_webui_path }}/config.json"
     owner: "{{ alerta_webui_user }}"
     group: "{{ alerta_webui_user }}"
     mode: 0755
