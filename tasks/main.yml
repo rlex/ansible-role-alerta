@@ -1,6 +1,6 @@
 - name: Install pip3
   package:
-    name: {{ alerta_server_dependencies }}
+    name: "{{ alerta_server_dependencies }}"
     state: present
 
 - name: Create alerta server directory
