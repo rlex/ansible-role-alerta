@@ -1,5 +1,9 @@
 alerta_server_user: alerta
 alerta_server_version: 7.4.4
+alerta_server_dependencies:
+  - python3-pip
+  - python3-setuptool
+  - uwsgi-plugin-python3
 #alerta_server_base_url: /
 alerta_server_path: /srv/www/alerta-server
 alerta_server_database_url: mongodb://localhost:27017/monitoring

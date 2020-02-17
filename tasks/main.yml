@@ -1,11 +1,6 @@
 - name: Install pip3
   package:
-    name: python3-pip
-    state: present
-
-- name: Install uwsgi
-  package:
-    name: uwsgi-plugin-python3
+    name: {{ alerta_server_dependencies }}
     state: present
 
 - name: Create alerta server directory
