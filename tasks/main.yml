@@ -79,16 +79,16 @@
     group: "{{ alerta_server_user }}"
     mode: 0644
 
-- name: "Create alerta houseekeeping cronjob"
+- name: "adjust PATH in alerta cronjob"
+  cron:
+    name: PATH
+    env: yes
+    job: /usr/local/bin:/usr/bin:/bin
+
+- name: "create alerta housekeeping cronjob"
   cron:
     name: "alerta housekeeping"
     job: "alerta housekeeping"
-    user: "{{ alerta_server_user }}"
-
-- name: "Create alerta heartbeat cronjob"
-  cron:
-    name: "alerta heartbeat"
-    job: "alerta heartbeats --alert"
     user: "{{ alerta_server_user }}"
 
 - name: "Check alerta-webui version"

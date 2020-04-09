@@ -6,11 +6,6 @@ alerta_server_dependencies:
   - python3-setuptools
   - uwsgi-plugin-python3
 #alerta_server_base_url: /
-#alerta_server_api_url is used for cronjobs
-alerta_server_api_url: https://alert.example.com/api
-#alerta_server_api_key is used  for cronjobs
-#if no auth, can be skipped
-alerta_server_api_key: yoursupersecretkey
 alerta_server_path: /srv/www/alerta-server
 alerta_server_database_url: mongodb://localhost:27017/monitoring
 alerta_server_api_endpoint: /api
@@ -65,3 +60,9 @@ alerta_webui_version: "{{ alerta_server_version }}"
 alerta_webui_path: /srv/www/alerta
 alerta_webui_user: "{{ alerta_server_user }}"
 alerta_webui_api_endpoint: "{{ alerta_server_api_endpoint }}"
+
+#alerta_client_api_url is used for cronjobs
+alerta_client_api_url: https://alert.example.com/api
+#alerta_client_api_key is used for cronjobs
+#if no auth, can be skipped
+alerta_client_api_key: yoursupersecretkey
