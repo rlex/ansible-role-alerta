@@ -14,6 +14,12 @@
     executable: pip3
     state: latest
 
+- name: Install alerta client
+  pip:
+    name: alerta
+    executable: pip3
+    state: latest
+
 - name: Install alerta external plugins
   pip:
     name: "{{ alerta_server_external_plugins }}"
@@ -24,8 +30,8 @@
   user:
     name: alerta
     system: true
-    shell: /usr/sbin/nologin
-    createhome: false
+    shell: /usr/bin/bash
+    home: "{{ alerta_server_user_home }}"
 
 - name: Copy uwsgi script
   copy:
@@ -64,6 +70,26 @@
     mode: 0644
   notify:
     - restart alertad
+
+- name: confige alerta client config
+  template:
+    src: alerta.conf.j2
+    dest: "{{ alerta_server_user_home }}/.alerta.conf"
+    owner: "{{ alerta_server_user }}"
+    group: "{{ alerta_server_user }}"
+    mode: 0644
+
+- name: "Create alerta houseekeeping cronjob"
+  cron:
+    name: "alerta housekeeping"
+    job: "alerta housekeeping"
+    user: "{{ alerta_server_user }}"
+
+- name: "Create alerta heartbeat cronjob"
+  cron:
+    name: "alerta heartbeat"
+    job: "alerta heartbeats --alert"
+    user: "{{ alerta_server_user }}"
 
 - name: "Check alerta-webui version"
   slurp:

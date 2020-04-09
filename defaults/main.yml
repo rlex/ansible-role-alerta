@@ -1,10 +1,16 @@
 alerta_server_user: alerta
-alerta_server_version: 7.4.4
+alerta_server_user_home: /var/lib/alerta
+alerta_server_version: 7.4.5
 alerta_server_dependencies:
   - python3-pip
-  - python3-setuptool
+  - python3-setuptools
   - uwsgi-plugin-python3
 #alerta_server_base_url: /
+#alerta_server_api_url is used for cronjobs
+alerta_server_api_url: https://alert.example.com/api
+#alerta_server_api_key is used  for cronjobs
+#if no auth, can be skipped
+alerta_server_api_key: yoursupersecretkey
 alerta_server_path: /srv/www/alerta-server
 alerta_server_database_url: mongodb://localhost:27017/monitoring
 alerta_server_api_endpoint: /api
