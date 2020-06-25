@@ -13,6 +13,8 @@
     name: "alerta-server=={{ alerta_server_version }}"
     executable: pip3
     state: latest
+  notify:
+    - restart alertad
 
 - name: Install alerta client
   pip:
